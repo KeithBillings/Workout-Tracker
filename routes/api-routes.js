@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {Workout} = require("../models");
+const { Workout } = require("../models");
 
 router.get("/api/workouts/range", (req, res) => {
   Workout.find({}).limit(7)
@@ -13,7 +13,6 @@ router.get("/api/workouts/range", (req, res) => {
 
 router.get("/api/workouts", (req, res) => {
   Workout.find({})
-  // .limit(1).sort({ $natural: -1 })
     .then(dbWorkout => {
       res.json(dbWorkout);
     })
@@ -34,10 +33,11 @@ router.post("/api/workouts", (req, res) => {
 
 router.put("/api/workouts/:id", (req, res) => {
   // console.log(req.params.id);
-  Workout.findOneAndUpdate({ _id: req.params.id },
-    { $push: { excercises: req.body } },
-    { upsert: true, useFindandModify: false },
-    updatedWorkout => {
+  Workout.findOneAndUpdate(
+    { _id: req.params.id }, // filter
+    { $push: { excercises: req.body } },  // update
+    { upsert: true, useFindandModify: false }, // options
+    (updatedWorkout) => {
       res.json(updatedWorkout);
     })
 });
