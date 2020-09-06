@@ -27,15 +27,15 @@ const ExerciseSchema = new Schema({
   distance: {
     type: Number,
     required: "Enter a distance"
-  }
-})
-
-const workoutSchema = new Schema({
+  },
   type: {
     type: String,
     trim: true,
     required: "Enter a type of workout"
-  },
+  }
+})
+
+const workoutSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
